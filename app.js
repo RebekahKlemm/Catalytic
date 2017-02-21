@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const app = express();
 
 app.use(bodyParser.json());
+app.use(express.static('public'));
+
 
 //Here is where I serve up the first page
 app.get('/', function (req, res, next) {
