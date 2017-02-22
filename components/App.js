@@ -1,5 +1,7 @@
 import React from 'react';
 import Nav from './Nav';
+import Sidebar from './Sidebar';
+import StepDetail from './StepDetail';
 
 export const App = function(props){
     return (
@@ -8,9 +10,8 @@ export const App = function(props){
                 <Nav />
             </div>
             <div>
-                {
-                    props.children && React.cloneElement(props.children, props)
-                }
+                <Sidebar />
+                <StepDetail />
             </div>
         </div>
     );

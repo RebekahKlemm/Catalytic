@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import {App} from './App';
-import Sidebar from './Sidebar';
 import {Provider} from 'react-redux';
 import store from '../store';
 import axios from 'axios';
@@ -30,7 +29,6 @@ ReactDOM.render(
     <Provider store={store}>
         <Router history={browserHistory}>
             <Route path='/' component={App} onEnter={onAppEnter}>
-                <IndexRoute component={Sidebar}/>
             </Route>
         </Router>
     </Provider>,

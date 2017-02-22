@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import {updateStepDetail} from '../reducers/step-reducer'
+
 
 class Sidebar extends Component {
     constructor(props) {
@@ -25,6 +27,10 @@ class Sidebar extends Component {
         return step.role.users.join(" and ");
     }
 
+    viewDetails(step){
+        this.props.updateStepDetail(step);
+    }
+
     render() {
         let steps = [...this.props.allSteps];
         return (
@@ -34,7 +40,7 @@ class Sidebar extends Component {
                 <ol>
                     { steps.map((step) => {
                             return (
-                                <li key={step.stepNumber}>
+                                <li key={step.stepNumber} onClick={e => this.viewDetails(step)}>
                                     <p>{step.displayName}</p>
                                     {/*if the step depends on a previous step...*/}
                                     {step.requiredPreviousSteps.length ? <p className="smallFont">depends on {this.getDependency(step)} </p> : null}
@@ -58,7 +64,11 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-    return {}
+    return {
+        updateStepDetail: function(step){
+            dispatch(updateStepDetail(step));
+        },
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);
