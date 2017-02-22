@@ -5,18 +5,22 @@ import {App} from './App';
 import {Provider} from 'react-redux';
 import store from '../store';
 import axios from 'axios';
+import {receiveProcesses} from '../reducers/process-reducer'
+import {receiveSteps} from '../reducers/step-reducer'
+import {receiveUsers} from '../reducers/user-reducer'
 
 const onAppEnter = function () {
     Promise.all([
-        axios.get('/data/process'),
-        axios.get('/data/steps'),
-        axios.get('/data/users')
+        axios.get('/data/process.json'),
+        axios.get('/data/steps.json'),
+        axios.get('/data/users.json')
     ])
         .then(responses => responses.map(r => r.data))
         .then(([processes, steps, users]) => {
-            // store.dispatch(receiveProcesses(processes));
-            // store.dispatch(receiveSteps(steps));
-            // store.dispatch(receiveUsers(users));
+        console.log('processes', processes);
+            store.dispatch(receiveProcesses(processes));
+            store.dispatch(receiveSteps(steps));
+            store.dispatch(receiveUsers(users));
         })
 
 };

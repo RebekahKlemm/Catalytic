@@ -2,17 +2,17 @@ import React from 'react'
 
 //set initial state in the redux store
 const initialState = {
-    allProcesses: []
+    allUsers:[]
 }
 
 //utilize a constant in order to avoid typos
-const RECEIVE_PROCESSES = 'RECEIVE_PROCESSES';
+const RECEIVE_USERS = 'RECEIVE_USERS';
 
-//action to retrieve all processes and put them in the store; runs on App enter
-export const receiveProcesses = function (processes) {
+//action to retrieve all users and put them in the store; runs on App enter
+export const receiveUsers = function (users) {
     return {
-        type: RECEIVE_PROCESSES,
-        allProcesses: processes
+        type: RECEIVE_USERS,
+        allUsers: users
     };
 };
 
@@ -20,13 +20,11 @@ export const receiveProcesses = function (processes) {
 export default function (state = initialState, action) {
     let newState = Object.assign({}, state)
     switch (action.type) {
-        case RECEIVE_PROCESSES:
-            newState.allProcesses = [...newState.allProcesses, action.allProcesses];
+        case RECEIVE_USERS:
+            newState.allUsers = [...newState.allUsers, ...action.allUsers];
             break;
         default:
             return state;
     }
     return newState;
 }
-
-
