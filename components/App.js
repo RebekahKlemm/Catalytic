@@ -1,7 +1,7 @@
 import React from 'react';
 import Nav from './Nav';
 import Sidebar from './Sidebar';
-import StepDetail from './StepDetail';
+import MainViewContainer from './MainViewContainer';
 
 export const App = function(props){
     return (
@@ -11,7 +11,7 @@ export const App = function(props){
             </div>
             <div>
                 <Sidebar />
-                <StepDetail />
+                <MainViewContainer />
             </div>
         </div>
     );

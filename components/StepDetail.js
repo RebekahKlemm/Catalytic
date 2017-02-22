@@ -12,7 +12,7 @@ class StepDetail extends Component {
             //subtract one from the stepDetail to account for zero-indexed array (step numbers start at one, while the array index starts at 0)
             let step = this.props.allSteps[this.props.stepDetail-1];
             return (
-                <div className="col-md-9">
+                <div className="stepDetail">
                     Here is Step Detail {step.stepNumber}
                 </div>
             )

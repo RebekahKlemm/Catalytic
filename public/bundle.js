@@ -13785,9 +13785,9 @@ var _Sidebar = __webpack_require__(309);
 
 var _Sidebar2 = _interopRequireDefault(_Sidebar);
 
-var _StepDetail = __webpack_require__(310);
+var _MainViewContainer = __webpack_require__(311);
 
-var _StepDetail2 = _interopRequireDefault(_StepDetail);
+var _MainViewContainer2 = _interopRequireDefault(_MainViewContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13804,7 +13804,7 @@ var App = exports.App = function App(props) {
             'div',
             null,
             _react2.default.createElement(_Sidebar2.default, null),
-            _react2.default.createElement(_StepDetail2.default, null)
+            _react2.default.createElement(_MainViewContainer2.default, null)
         )
     );
 };
@@ -31585,7 +31585,7 @@ var StepDetail = function (_Component) {
                 var step = this.props.allSteps[this.props.stepDetail - 1];
                 return _react2.default.createElement(
                     'div',
-                    { className: 'col-md-9' },
+                    { className: 'stepDetail' },
                     'Here is Step Detail ',
                     step.stepNumber
                 );
@@ -31612,6 +31612,149 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(StepDetail);
+
+/***/ }),
+/* 311 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(136);
+
+var _StepDetail = __webpack_require__(310);
+
+var _StepDetail2 = _interopRequireDefault(_StepDetail);
+
+var _Process = __webpack_require__(312);
+
+var _Process2 = _interopRequireDefault(_Process);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var MainViewContainer = function (_Component) {
+    _inherits(MainViewContainer, _Component);
+
+    function MainViewContainer(props) {
+        _classCallCheck(this, MainViewContainer);
+
+        return _possibleConstructorReturn(this, (MainViewContainer.__proto__ || Object.getPrototypeOf(MainViewContainer)).call(this, props));
+    }
+
+    _createClass(MainViewContainer, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                { className: 'col-md-9 mainViewContainer' },
+                _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(_Process2.default, null)
+                ),
+                _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(_StepDetail2.default, null)
+                )
+            );
+        }
+    }]);
+
+    return MainViewContainer;
+}(_react.Component);
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+    return {
+        allSteps: state.steps.allSteps,
+        stepDetail: state.steps.stepDetail
+    };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+    return {};
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(MainViewContainer);
+
+/***/ }),
+/* 312 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(136);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Process = function (_Component) {
+    _inherits(Process, _Component);
+
+    function Process(props) {
+        _classCallCheck(this, Process);
+
+        return _possibleConstructorReturn(this, (Process.__proto__ || Object.getPrototypeOf(Process)).call(this, props));
+    }
+
+    _createClass(Process, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                'Process Goes Here'
+            );
+        }
+    }]);
+
+    return Process;
+}(_react.Component);
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+    return {
+        allSteps: state.steps.allSteps,
+        stepDetail: state.steps.stepDetail
+    };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+    return {};
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Process);
 
 /***/ })
 /******/ ]);

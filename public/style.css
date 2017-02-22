@@ -1,4 +1,4 @@
-.turquoiseDiv{
+.turquoiseDiv {
     border: 20px black;
     background: darkturquoise;
     color: white;
@@ -11,3 +11,10 @@
     line-height: 0.75em;
 }
 
+.mainViewContainer {
+    background: darkgray;
+}
+
+.stepDetail {
+    background: white;
+}
