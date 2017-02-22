@@ -13781,6 +13781,14 @@ var _Nav = __webpack_require__(154);
 
 var _Nav2 = _interopRequireDefault(_Nav);
 
+var _Sidebar = __webpack_require__(309);
+
+var _Sidebar2 = _interopRequireDefault(_Sidebar);
+
+var _StepDetail = __webpack_require__(310);
+
+var _StepDetail2 = _interopRequireDefault(_StepDetail);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = exports.App = function App(props) {
@@ -13795,7 +13803,8 @@ var App = exports.App = function App(props) {
         _react2.default.createElement(
             'div',
             null,
-            props.children && _react2.default.cloneElement(props.children, props)
+            _react2.default.createElement(_Sidebar2.default, null),
+            _react2.default.createElement(_StepDetail2.default, null)
         )
     );
 };
@@ -14887,7 +14896,7 @@ exports.default = (0, _redux.combineReducers)({ processes: _processReducer2.defa
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.receiveSteps = undefined;
+exports.updateStepDetail = exports.receiveSteps = undefined;
 
 exports.default = function () {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -14897,6 +14906,9 @@ exports.default = function () {
     switch (action.type) {
         case RECEIVE_STEPS:
             newState.allSteps = [].concat(_toConsumableArray(newState.allSteps), _toConsumableArray(action.allSteps));
+            break;
+        case UPDATE_STEP_DETAIL:
+            newState.stepDetail = action.stepDetail;
             break;
         default:
             return state;
@@ -14914,17 +14926,27 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 //set initial state in the redux store
 var initialState = {
-    allSteps: []
+    allSteps: [],
+    stepDetail: 1
 };
 
 //utilize a constant in order to avoid typos
 var RECEIVE_STEPS = 'RECEIVE_STEPS';
-
 //action to retrieve all steps and put them in the store; runs on App enter
 var receiveSteps = exports.receiveSteps = function receiveSteps(steps) {
     return {
         type: RECEIVE_STEPS,
         allSteps: steps
+    };
+};
+
+//utilize a constant in order to avoid typos
+var UPDATE_STEP_DETAIL = 'UPDATE_STEP_DETAIL';
+//action to retrieve all steps and put them in the store; runs on App enter
+var updateStepDetail = exports.updateStepDetail = function updateStepDetail(step) {
+    return {
+        type: UPDATE_STEP_DETAIL,
+        stepDetail: step.stepNumber
     };
 };
 
@@ -31277,10 +31299,6 @@ var _reactRouter = __webpack_require__(77);
 
 var _App = __webpack_require__(133);
 
-var _Sidebar = __webpack_require__(309);
-
-var _Sidebar2 = _interopRequireDefault(_Sidebar);
-
 var _reactRedux = __webpack_require__(136);
 
 var _store = __webpack_require__(134);
@@ -31322,11 +31340,7 @@ _reactDom2.default.render(_react2.default.createElement(
     _react2.default.createElement(
         _reactRouter.Router,
         { history: _reactRouter.browserHistory },
-        _react2.default.createElement(
-            _reactRouter.Route,
-            { path: '/', component: _App.App, onEnter: onAppEnter },
-            _react2.default.createElement(_reactRouter.IndexRoute, { component: _Sidebar2.default })
-        )
+        _react2.default.createElement(_reactRouter.Route, { path: '/', component: _App.App, onEnter: onAppEnter })
     )
 ), document.getElementById('app'));
 
@@ -31402,6 +31416,8 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(136);
 
+var _stepReducer = __webpack_require__(157);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
@@ -31447,6 +31463,11 @@ var Sidebar = function (_Component) {
             return step.role.users.join(" and ");
         }
     }, {
+        key: 'viewDetails',
+        value: function viewDetails(step) {
+            this.props.updateStepDetail(step);
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
@@ -31471,7 +31492,9 @@ var Sidebar = function (_Component) {
                     steps.map(function (step) {
                         return _react2.default.createElement(
                             'li',
-                            { key: step.stepNumber },
+                            { key: step.stepNumber, onClick: function onClick(e) {
+                                    return _this2.viewDetails(step);
+                                } },
                             _react2.default.createElement(
                                 'p',
                                 null,
@@ -31508,10 +31531,87 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
-    return {};
+    return {
+        updateStepDetail: function updateStepDetail(step) {
+            dispatch((0, _stepReducer.updateStepDetail)(step));
+        }
+    };
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Sidebar);
+
+/***/ }),
+/* 310 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(136);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var StepDetail = function (_Component) {
+    _inherits(StepDetail, _Component);
+
+    function StepDetail(props) {
+        _classCallCheck(this, StepDetail);
+
+        return _possibleConstructorReturn(this, (StepDetail.__proto__ || Object.getPrototypeOf(StepDetail)).call(this, props));
+    }
+
+    _createClass(StepDetail, [{
+        key: 'render',
+        value: function render() {
+            //ensure the store has time to load allSteps and stepDetail
+            if (this.props.allSteps.length && this.props.stepDetail) {
+                //subtract one from the stepDetail to account for zero-indexed array (step numbers start at one, while the array index starts at 0)
+                var step = this.props.allSteps[this.props.stepDetail - 1];
+                return _react2.default.createElement(
+                    'div',
+                    { className: 'col-md-9' },
+                    'Here is Step Detail ',
+                    step.stepNumber
+                );
+            } else return _react2.default.createElement(
+                'div',
+                null,
+                'Loading...'
+            );
+        }
+    }]);
+
+    return StepDetail;
+}(_react.Component);
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+    return {
+        allSteps: state.steps.allSteps,
+        stepDetail: state.steps.stepDetail
+    };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+    return {};
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(StepDetail);
 
 /***/ })
 /******/ ]);
