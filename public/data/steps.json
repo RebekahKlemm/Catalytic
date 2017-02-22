@@ -33,7 +33,7 @@
         ],
         "roleID": "d0a559fe-60ea-4140-9698-2f136d95ef04",
         "role": {
-            "users": []
+            "users": ["andrew", "ben"]
         },
         "appStep": null
     },

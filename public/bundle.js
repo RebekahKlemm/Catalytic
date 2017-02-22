@@ -31277,6 +31277,10 @@ var _reactRouter = __webpack_require__(77);
 
 var _App = __webpack_require__(133);
 
+var _Sidebar = __webpack_require__(309);
+
+var _Sidebar2 = _interopRequireDefault(_Sidebar);
+
 var _reactRedux = __webpack_require__(136);
 
 var _store = __webpack_require__(134);
@@ -31306,7 +31310,6 @@ var onAppEnter = function onAppEnter() {
             steps = _ref2[1],
             users = _ref2[2];
 
-        console.log('processes', processes);
         _store2.default.dispatch((0, _processReducer.receiveProcesses)(processes));
         _store2.default.dispatch((0, _stepReducer.receiveSteps)(steps));
         _store2.default.dispatch((0, _userReducer.receiveUsers)(users));
@@ -31319,7 +31322,11 @@ _reactDom2.default.render(_react2.default.createElement(
     _react2.default.createElement(
         _reactRouter.Router,
         { history: _reactRouter.browserHistory },
-        _react2.default.createElement(_reactRouter.Route, { path: '/', component: _App.App, onEnter: onAppEnter })
+        _react2.default.createElement(
+            _reactRouter.Route,
+            { path: '/', component: _App.App, onEnter: onAppEnter },
+            _react2.default.createElement(_reactRouter.IndexRoute, { component: _Sidebar2.default })
+        )
     )
 ), document.getElementById('app'));
 
@@ -31375,6 +31382,136 @@ var receiveUsers = exports.receiveUsers = function receiveUsers(users) {
 };
 
 //reducer to update store with data from action(s)
+
+/***/ }),
+/* 309 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(136);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Sidebar = function (_Component) {
+    _inherits(Sidebar, _Component);
+
+    function Sidebar(props) {
+        _classCallCheck(this, Sidebar);
+
+        return _possibleConstructorReturn(this, (Sidebar.__proto__ || Object.getPrototypeOf(Sidebar)).call(this, props));
+    }
+
+    //takes in a step and returns the stepNumber of the dependency
+
+
+    _createClass(Sidebar, [{
+        key: 'getDependency',
+        value: function getDependency(step) {
+            var dependencyNumber = void 0;
+            //loop through all the dependencies of the step
+            for (var i = 0; i < step.requiredPreviousSteps.length; i++) {
+                //loop through all of the steps and see if their stepName matches the dependencies
+                for (var j = 0; j < this.props.allSteps.length; j++) {
+                    if (step.requiredPreviousSteps[i] === this.props.allSteps[j].stepName) {
+                        return dependencyNumber = this.props.allSteps[j].stepNumber;
+                    }
+                }
+            }
+        }
+
+        //takes in a step and returns any assigned users as a comma-separated string
+
+    }, {
+        key: 'getAssignedUsers',
+        value: function getAssignedUsers(step) {
+            return step.role.users.join(" and ");
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            var steps = [].concat(_toConsumableArray(this.props.allSteps));
+            return _react2.default.createElement(
+                'div',
+                { className: 'col-md-3' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'turquoiseDiv' },
+                    'TRIGGERS'
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'turquoiseDiv' },
+                    'STEPS'
+                ),
+                _react2.default.createElement(
+                    'ol',
+                    null,
+                    steps.map(function (step) {
+                        return _react2.default.createElement(
+                            'li',
+                            { key: step.stepNumber },
+                            _react2.default.createElement(
+                                'p',
+                                null,
+                                step.displayName
+                            ),
+                            step.requiredPreviousSteps.length ? _react2.default.createElement(
+                                'p',
+                                { className: 'smallFont' },
+                                'depends on ',
+                                _this2.getDependency(step),
+                                ' '
+                            ) : null,
+                            step.role.users.length ? _react2.default.createElement(
+                                'p',
+                                { className: 'smallFont' },
+                                ' assigned to ',
+                                _this2.getAssignedUsers(step)
+                            ) : null,
+                            _react2.default.createElement('hr', null)
+                        );
+                    })
+                )
+            );
+        }
+    }]);
+
+    return Sidebar;
+}(_react.Component);
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+    return {
+        allSteps: state.steps.allSteps
+    };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+    return {};
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Sidebar);
 
 /***/ })
 /******/ ]);

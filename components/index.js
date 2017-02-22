@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import {App} from './App';
+import Sidebar from './Sidebar';
 import {Provider} from 'react-redux';
 import store from '../store';
 import axios from 'axios';
@@ -17,7 +18,6 @@ const onAppEnter = function () {
     ])
         .then(responses => responses.map(r => r.data))
         .then(([processes, steps, users]) => {
-        console.log('processes', processes);
             store.dispatch(receiveProcesses(processes));
             store.dispatch(receiveSteps(steps));
             store.dispatch(receiveUsers(users));
@@ -30,7 +30,7 @@ ReactDOM.render(
     <Provider store={store}>
         <Router history={browserHistory}>
             <Route path='/' component={App} onEnter={onAppEnter}>
-                {/*<IndexRoute component={}/>*/}
+                <IndexRoute component={Sidebar}/>
             </Route>
         </Router>
     </Provider>,
