@@ -2,12 +2,11 @@ import React from 'react'
 
 //set initial state in the redux store
 const initialState = {
-    allProcesses: []
+    allProcesses: [],
 }
 
 //utilize a constant in order to avoid typos
 const RECEIVE_PROCESSES = 'RECEIVE_PROCESSES';
-
 //action to retrieve all processes and put them in the store; runs on App enter
 export const receiveProcesses = function (processes) {
     return {

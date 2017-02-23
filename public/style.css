@@ -12,9 +12,50 @@
 }
 
 .mainViewContainer {
-    background: darkgray;
+    background: #e6e3e8;
+    padding: 2em;
 }
 
 .stepDetail {
     background: white;
+}
+
+.form-control{
+    background: #e6e3e8;
+    border: none;
+    box-shadow: none;
+}
+.form-control[readOnly]{
+    background: #e6e3e8;
+}
+
+.floatRight{
+    float: right;
+
+}
+.floatLeft{
+    float: left;
+}
+
+.process-footer{
+    vertical-align: middle;
+    line-height: 35px;
+    padding: 0 2em;
+}
+
+#process-submit-button {
+    width: 80px;
+    padding: 0 1em;
+}
+.clearfix :after {
+    content: " ";
+    visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
+}
+
+.thick-hr {
+    margin: 0.5em 0;
+    border: 3px inset;
 }
