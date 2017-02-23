@@ -31558,6 +31558,8 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(136);
 
+var _reactBootstrap = __webpack_require__(549);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
@@ -31574,19 +31576,28 @@ var StepDetail = function (_Component) {
     function StepDetail(props) {
         _classCallCheck(this, StepDetail);
 
-        return _possibleConstructorReturn(this, (StepDetail.__proto__ || Object.getPrototypeOf(StepDetail)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (StepDetail.__proto__ || Object.getPrototypeOf(StepDetail)).call(this, props));
+
+        _this.state = {
+            showAssignUser: false,
+            showMaximumDuration: false,
+            showDependencies: false,
+            showConditions: false,
+            showFields: false
+        };
+        return _this;
     }
 
     _createClass(StepDetail, [{
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
             //ensure the store has time to load allSteps and stepDetail
             if (this.props.allSteps.length && this.props.stepDetail) {
                 //subtract one from the stepDetail to account for zero-indexed array (step numbers start at one, while the array index starts at 0)
                 var step = this.props.allSteps[this.props.stepDetail - 1];
                 var users = [].concat(_toConsumableArray(this.props.users));
-
-                console.log('step', step);
                 return _react2.default.createElement(
                     'div',
                     { className: 'stepDetail' },
@@ -31625,83 +31636,107 @@ var StepDetail = function (_Component) {
                     ),
                     _react2.default.createElement(
                         'p',
-                        null,
-                        'I have no idea what \'configuration settings\' are, but I bet they\'re cool and they go here!'
-                    ),
-                    _react2.default.createElement(
-                        'p',
-                        null,
+                        { onClick: function onClick() {
+                                return _this2.setState({ showAssignUser: !_this2.state.showAssignUser });
+                            } },
                         'Assign User'
                     ),
                     _react2.default.createElement(
-                        'div',
-                        null,
-                        users.map(function (user) {
-                            console.log('user', user);
-                            return _react2.default.createElement(
-                                'div',
-                                { key: user.userID },
-                                user.username
-                            );
-                        })
+                        _reactBootstrap.Collapse,
+                        { 'in': this.state.showAssignUser },
+                        _react2.default.createElement(
+                            'div',
+                            null,
+                            users.map(function (user) {
+                                return _react2.default.createElement(
+                                    'div',
+                                    { key: user.userID },
+                                    user.username
+                                );
+                            })
+                        )
                     ),
                     _react2.default.createElement(
                         'p',
-                        null,
+                        { onClick: function onClick() {
+                                return _this2.setState({ showMaximumDuration: !_this2.state.showMaximumDuration });
+                            } },
                         'Maximum Duration'
                     ),
                     _react2.default.createElement(
-                        'p',
-                        null,
-                        step.maximumDuration
+                        _reactBootstrap.Collapse,
+                        { 'in': this.state.showMaximumDuration },
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            step.maximumDuration
+                        )
                     ),
                     _react2.default.createElement(
                         'p',
-                        null,
+                        { onClick: function onClick() {
+                                return _this2.setState({ showDependencies: !_this2.state.showDependencies });
+                            } },
                         'Dependencies'
                     ),
                     _react2.default.createElement(
-                        'div',
-                        null,
-                        step.requiredPreviousSteps.map(function (requiredStep) {
-                            return _react2.default.createElement(
-                                'div',
-                                { key: step.requiredPreviousSteps.indexOf(requiredStep) },
-                                requiredStep
-                            );
-                        })
+                        _reactBootstrap.Collapse,
+                        { 'in': this.state.showDependencies },
+                        _react2.default.createElement(
+                            'div',
+                            null,
+                            step.requiredPreviousSteps.map(function (requiredStep) {
+                                return _react2.default.createElement(
+                                    'div',
+                                    { key: step.requiredPreviousSteps.indexOf(requiredStep) },
+                                    requiredStep
+                                );
+                            })
+                        )
                     ),
                     _react2.default.createElement(
                         'p',
-                        null,
+                        { onClick: function onClick() {
+                                return _this2.setState({ showConditions: !_this2.state.showConditions });
+                            } },
                         'Conditions'
                     ),
                     _react2.default.createElement(
-                        'div',
-                        null,
-                        step.conditions.map(function (condition) {
-                            return _react2.default.createElement(
-                                'div',
-                                { key: step.conditions.indexOf(condition) },
-                                condition
-                            );
-                        })
+                        _reactBootstrap.Collapse,
+                        { 'in': this.state.showConditions },
+                        _react2.default.createElement(
+                            'div',
+                            null,
+                            step.conditions.map(function (condition) {
+                                return _react2.default.createElement(
+                                    'div',
+                                    { key: step.conditions.indexOf(condition) },
+                                    condition
+                                );
+                            })
+                        )
                     ),
                     _react2.default.createElement(
                         'p',
-                        null,
+                        { onClick: function onClick() {
+                                return _this2.setState({ showFields: !_this2.state.showFields });
+                            } },
                         'Fields'
                     ),
                     _react2.default.createElement(
-                        'div',
-                        null,
-                        step.fields.map(function (field) {
-                            return _react2.default.createElement(
-                                'div',
-                                { key: step.fields.indexOf(field) },
-                                field.displayName
-                            );
-                        })
+                        _reactBootstrap.Collapse,
+                        { 'in': this.state.showFields },
+                        _react2.default.createElement(
+                            'div',
+                            null,
+                            step.fields.map(function (field) {
+                                return _react2.default.createElement(
+                                    'div',
+                                    { key: step.fields.indexOf(field) },
+                                    field.displayName
+                                );
+                            })
+                        )
                     )
                 );
             } else return _react2.default.createElement(
