@@ -31560,6 +31560,8 @@ var _reactRedux = __webpack_require__(136);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -31582,11 +31584,125 @@ var StepDetail = function (_Component) {
             if (this.props.allSteps.length && this.props.stepDetail) {
                 //subtract one from the stepDetail to account for zero-indexed array (step numbers start at one, while the array index starts at 0)
                 var step = this.props.allSteps[this.props.stepDetail - 1];
+                var users = [].concat(_toConsumableArray(this.props.users));
+
+                console.log('step', step);
                 return _react2.default.createElement(
                     'div',
                     { className: 'stepDetail' },
-                    'Here is Step Detail ',
-                    step.stepNumber
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        step.displayName
+                    ),
+                    _react2.default.createElement('hr', null),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'Step Name'
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'Instructions'
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        step.description
+                    ),
+                    _react2.default.createElement('hr', null),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'This will be shown to the user when they are assigned this step as a task'
+                    ),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'Configuration Settings'
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'I have no idea what \'configuration settings\' are, but I bet they\'re cool and they go here!'
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'Assign User'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        users.map(function (user) {
+                            console.log('user', user);
+                            return _react2.default.createElement(
+                                'div',
+                                { key: user.userID },
+                                user.username
+                            );
+                        })
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'Maximum Duration'
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        step.maximumDuration
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'Dependencies'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        step.requiredPreviousSteps.map(function (requiredStep) {
+                            return _react2.default.createElement(
+                                'div',
+                                { key: step.requiredPreviousSteps.indexOf(requiredStep) },
+                                requiredStep
+                            );
+                        })
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'Conditions'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        step.conditions.map(function (condition) {
+                            return _react2.default.createElement(
+                                'div',
+                                { key: step.conditions.indexOf(condition) },
+                                condition
+                            );
+                        })
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'Fields'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        step.fields.map(function (field) {
+                            return _react2.default.createElement(
+                                'div',
+                                { key: step.fields.indexOf(field) },
+                                field.displayName
+                            );
+                        })
+                    )
                 );
             } else return _react2.default.createElement(
                 'div',
@@ -31602,7 +31718,8 @@ var StepDetail = function (_Component) {
 var mapStateToProps = function mapStateToProps(state, ownProps) {
     return {
         allSteps: state.steps.allSteps,
-        stepDetail: state.steps.stepDetail
+        stepDetail: state.steps.stepDetail,
+        users: state.users.allUsers
     };
 };
 
